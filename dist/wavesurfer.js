@@ -1,5 +1,5 @@
 /*!
- * wavesurfer.js 2.0.6 (Tue Sep 18 2018 16:14:56 GMT+0900 (JST))
+ * wavesurfer.js 2.0.6 (Tue Sep 18 2018 16:29:01 GMT+0900 (JST))
  * https://github.com/katspaugh/wavesurfer.js
  * @license BSD-3-Clause
  */
@@ -3239,7 +3239,9 @@ var WaveSurfer = function (_util$Observer) {
             // Click-to-seek
             this.drawer.on('click', function (e, progress) {
                 setTimeout(function () {
-                    return _this5.seekTo(progress);
+                    if (progress < 0) progress = 0;
+                    if (progress > 1) progress = 1;
+                    _this5.seekTo(progress);
                 }, 0);
             });
 
