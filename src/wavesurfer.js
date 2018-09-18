@@ -560,7 +560,11 @@ export default class WaveSurfer extends util.Observer {
 
         // Click-to-seek
         this.drawer.on('click', (e, progress) => {
-            setTimeout(() => this.seekTo(progress), 0);
+            setTimeout(() => {
+                if (progress < 0) progress = 0;
+                if (progress > 1) progress = 1;
+                this.seekTo(progress);
+            }, 0);
         });
 
         // Relay the scroll event from the drawer
