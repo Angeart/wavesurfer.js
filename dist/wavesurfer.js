@@ -1,5 +1,5 @@
 /*!
- * wavesurfer.js 2.0.6 (Tue Sep 18 2018 12:53:26 GMT+0900 (JST))
+ * wavesurfer.js 2.0.6 (Tue Sep 18 2018 16:14:56 GMT+0900 (JST))
  * https://github.com/katspaugh/wavesurfer.js
  * @license BSD-3-Clause
  */
@@ -997,15 +997,18 @@ var MultiCanvas = function (_Drawer) {
                 var gap = _this4.params.barGap === null ? Math.max(_this4.params.pixelRatio, ~~(bar / 2)) : Math.max(_this4.params.pixelRatio, _this4.params.barGap * _this4.params.pixelRatio);
                 var step = bar + gap;
 
-                var scale = length / _this4.width;
+                // const scale = length / this.width;
+                var scale = 1;
                 var first = start;
                 var last = end;
                 var i = void 0;
 
                 for (i = first; i < last; i += step) {
                     var peak = peaks[Math.floor(i * scale * peakIndexScale)] || 0;
-                    var h = Math.ceil(peak / absmax * halfH);
-                    _this4.fillRect(i + _this4.halfPixel, halfH - h + offsetY, bar + _this4.halfPixel, h * 2);
+                    var h = Math.round(peak / absmax * halfH) || 1;
+                    _this4.fillRect(i, // + this.halfPixel,
+                    halfH - h + offsetY, bar, // + this.halfPixel,
+                    h * 2);
                 }
             });
         }
